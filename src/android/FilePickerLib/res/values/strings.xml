@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_logout">Logout</string>
+    <string name="file_picker_animation_duration">400</string>
+
+    <!-- NEW LIBRARY -->
+    <string name="apikey_missing">API Key is missing</string>
+    <string name="title_activity_content">Filepicker</string>
+
+    <!-- Toast messages -->
+    <string name="error_connection">Error with network connection.</string>
+    <string name="error_authorization">Error with authorization.</string>
+    <string name="error_unexpected">Unexpected error has occurred. Please try again.</string>
+    <string name="error_invalid_file">The file you chose is invalid..</string>
+
+    <string name="uploading_image">Uploading image…</string>
+    <string name="empty_list_text">This folder is empty.</string>
+
+    <string name="camera_not_found">Camera not found.</string>
+
+    <string name="filename">Filename</string>
+    <string name="upload">Upload</string>
+
+    <string name="save">Save</string>
+    <string name="override">Override</string>
+
+    <string name="saving_file">Saving file…</string>
+
+
+</resources>

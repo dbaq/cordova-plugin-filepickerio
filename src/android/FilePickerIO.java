@@ -13,6 +13,9 @@ import android.content.Intent;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import io.filepicker.Filepicker;
+
 public class FilePickerIO extends CordovaPlugin {
 
     private CallbackContext callbackContext;

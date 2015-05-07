@@ -27,6 +27,8 @@
             <uses-permission android:name="android.permission.READ_CONTACTS" />
         </config-file>
 
+        <framework src="src/android/FilePickerLib" custom="true" />
+
         <source-file src="src/android/FilePickerIO.java" target-dir="src/com/dbaq/cordova/filepickerio" />
     </platform>
 </plugin>
