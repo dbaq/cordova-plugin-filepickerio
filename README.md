@@ -3,6 +3,7 @@
 Plugin for Cordova / PhoneGap to use the native SDK of [Filepicker.io](https://www.filepicker.com)
 
 
+THIS IS A WORK IN PROGRESS.
 
 
 ## Contributing
