@@ -30,12 +30,6 @@ public class FilePickerIO extends CordovaPlugin {
     
     private static final String LOG_TAG = "FilePickerIO";
 
-
-    // REQUIRED FIELD
-    private static final String FILEPICKER_API_KEY = "KEY";
-
-    // OPTIONAL FIELD
-    private static final String PARENT_APP = "APP";
     
     public FilePickerIO() {}
 
@@ -47,24 +41,48 @@ public class FilePickerIO extends CordovaPlugin {
      * @param callbackContext   The callback context used when calling back into JavaScript.
      * @return                  True if the action was valid, false otherwise.
      */
-    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
         
         this.callbackContext = callbackContext;
         this.executeArgs = args; 
 
         final CordovaPlugin cdvPlugin = this;
- 
         
         if (ACTION_PICK.equals(action)) {
             this.cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    //callbackContext.success("picked");
 
-                    Filepicker.setKey(FILEPICKER_API_KEY);
-                    Filepicker.setAppName(PARENT_APP);
 
                     Context context = cordova.getActivity().getApplicationContext();
-                    cordova.startActivityForResult(cdvPlugin, new Intent(context, Filepicker.class), Filepicker.REQUEST_CODE_GETFILE);
+                    Intent intent = new Intent(context, Filepicker.class);
+
+                    try {
+                        Filepicker.setKey(args.getString(0));
+                        //parsing the optional parameters
+                        if (!args.isNull(1)) {
+                            Filepicker.setAppName(args.getString(1));
+                        }
+                        if (!args.isNull(2)) {
+                            intent.putExtra("mimetype", parseJSONStringArray(args.getJSONArray(2)));
+                        }
+                        if (!args.isNull(3)) {
+                            intent.putExtra("services", parseJSONStringArray(args.getJSONArray(3)));
+                        }
+                        if (!args.isNull(4)) {
+                            intent.putExtra("multiple", args.getBoolean(4));
+                        }
+                        if (!args.isNull(5)) {
+                            intent.putExtra("maxFiles", args.getInt(5));
+                        }
+                        if (!args.isNull(6)) {
+                            intent.putExtra("maxSize", args.getInt(6));
+                        }
+                    }
+                    catch(JSONException exception) {
+                        callbackContext.error("cannot parse json");
+                    }
+
+                    cordova.startActivityForResult(cdvPlugin, intent, Filepicker.REQUEST_CODE_GETFILE);
                 }
             });    
             return true;
@@ -96,5 +114,13 @@ public class FilePickerIO extends CordovaPlugin {
         else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public String[] parseJSONStringArray(JSONArray jSONArray) throws JSONException {
+        String[] a = new String[jSONArray.length()];
+        for(int i = 0; i < jSONArray.length(); i++){
+            a[i] = jSONArray.getString(i);
+        }
+        return a;
     }
 }

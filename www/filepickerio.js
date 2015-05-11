@@ -19,7 +19,6 @@
  *
 */
 
-'use strict';
 
 var argscheck = require('cordova/argscheck'),
     exec = require('cordova/exec');
@@ -27,13 +26,36 @@ var argscheck = require('cordova/argscheck'),
 var filepickerio = {
     /**
      * Pick a file
+     * @param pickerOptions options
      * @param successCB success callback
      * @param errorCB error callback
      * @return info the file
      */
-    pick:function(successCB, errorCB) {
-        argscheck.checkArgs('fF', 'filepickerio.pick', arguments);
-        exec(successCB, errorCB, 'filepickerio', 'pick', []);
+    pick:function(pickerOptions, successCB, errorCB) {
+
+        var name, multiple, maxFiles, maxSize, mimeTypes, services = null;
+
+        if (typeof pickerOptions.name === 'string') {
+            name = pickerOptions.name;
+        }
+        if (typeof pickerOptions.mimeTypes === 'object') {
+            mimeTypes = pickerOptions.mimeTypes;
+        }
+        if (typeof pickerOptions.services === 'object') {
+            services = pickerOptions.services;
+        }
+        if (typeof pickerOptions.multiple === 'boolean') {
+            multiple = pickerOptions.multiple;
+        }
+        if (typeof pickerOptions.maxFiles === 'number') {
+            maxFiles = pickerOptions.maxFiles;
+        } 
+        if (typeof pickerOptions.maxSize === 'number') {
+            maxSize = pickerOptions.maxSize;
+        } 
+
+
+        exec(successCB, errorCB, 'filepickerio', 'pick', [pickerOptions.key, name, mimeTypes, services, multiple, maxFiles, maxSize]);
     }
 };
 
