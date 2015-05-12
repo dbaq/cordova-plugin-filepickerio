@@ -55,7 +55,9 @@ var filepickerio = {
      */
     pick:function(pickerOptions, successCB, errorCB) {
         pickerOptions.multiple = false;
-        exec(successCB, errorCB, 'filepickerio', 'pick', parseArgs(pickerOptions));
+        exec(function(files) {
+            successCB && successCB(files[0]);
+        }), errorCB, 'filepickerio', 'pick', parseArgs(pickerOptions));
     },
     /**
      * Pick multiple files
