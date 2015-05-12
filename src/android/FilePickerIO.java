@@ -94,7 +94,12 @@ public class FilePickerIO extends CordovaPlugin {
         if (requestCode == Filepicker.REQUEST_CODE_GETFILE) {
             if (resultCode == Activity.RESULT_OK) {
                 ArrayList<FPFile> fpFiles = data.getParcelableArrayListExtra(Filepicker.FPFILES_EXTRA);
-                callbackContext.success(toJSON(fpFiles)); // Filepicker always returns array of FPFile objects
+                try{
+                    callbackContext.success(toJSON(fpFiles)); // Filepicker always returns array of FPFile objects
+                }
+                catch(JSONException exception) {
+                    callbackContext.error("json exception");
+                }
             } else {
                 callbackContext.error("nok");
             }
@@ -145,10 +150,10 @@ public class FilePickerIO extends CordovaPlugin {
         return a;
     }
 
-    public JSONArray toJSON(ArrayList<FPFile> fpFiles) {
+    public JSONArray toJSON(ArrayList<FPFile> fpFiles) throws JSONException {
         JSONArray res = new JSONArray();
         for (FPFile fpFile : fpFiles) {
-            java.util.Map f = new java.util.HashMap<String, Object>();
+            JSONObject f = new JSONObject();
             f.put("container", fpFile.getContainer());
             f.put("url", fpFile.getUrl());
             f.put("filename", fpFile.getFilename());
