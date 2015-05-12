@@ -26,8 +26,6 @@ var argscheck = require('cordova/argscheck'),
 
 function parseArgs(args) {
     var a = [];
-    a.push(args.key);
-    a.push(args.name || '');
     a.push(args.mimeTypes || null);
     a.push(args.services || null);
     a.push(args.multiple || null);
@@ -46,6 +44,20 @@ function parseStoreArgs(args) {
 }    
     
 var filepickerio = {
+    /**
+     * Set the API key
+     * @param key
+     */
+    setKey:function(key) {
+        exec(null, null, 'filepickerio', 'setKey', [key]);
+    },
+    /**
+     * Set the app name
+     * @param name
+     */
+    setName:function(name) {
+        exec(null, null, 'filepickerio', 'setName', [name]);
+    },
     /**
      * Pick a file
      * @param pickerOptions options
