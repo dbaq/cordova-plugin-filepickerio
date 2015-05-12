@@ -22,6 +22,28 @@
 
 var argscheck = require('cordova/argscheck'),
     exec = require('cordova/exec');
+
+
+function parseArgs(args) {
+    var a = [];
+    a.push(args.key);
+    a.push(args.name || '');
+    a.push(args.mimeTypes || null);
+    a.push(args.services || null);
+    a.push(args.multiple || null);
+    a.push(args.maxFiles || null);
+    a.push(args.maxSize || null);
+    return a;
+}    
+    
+function parseStoreArgs(args) {
+    var a = [];
+    a.push(args.location || null);
+    a.push(args.path || null);
+    a.push(args.container || null);
+    a.push(args.access || null);
+    return a;
+}    
     
 var filepickerio = {
     /**
@@ -32,30 +54,18 @@ var filepickerio = {
      * @return info the file
      */
     pick:function(pickerOptions, successCB, errorCB) {
-
-        var name, multiple, maxFiles, maxSize, mimeTypes, services = null;
-
-        if (typeof pickerOptions.name === 'string') {
-            name = pickerOptions.name;
-        }
-        if (typeof pickerOptions.mimeTypes === 'object') {
-            mimeTypes = pickerOptions.mimeTypes;
-        }
-        if (typeof pickerOptions.services === 'object') {
-            services = pickerOptions.services;
-        }
-        if (typeof pickerOptions.multiple === 'boolean') {
-            multiple = pickerOptions.multiple;
-        }
-        if (typeof pickerOptions.maxFiles === 'number') {
-            maxFiles = pickerOptions.maxFiles;
-        } 
-        if (typeof pickerOptions.maxSize === 'number') {
-            maxSize = pickerOptions.maxSize;
-        } 
-
-
-        exec(successCB, errorCB, 'filepickerio', 'pick', [pickerOptions.key, name, mimeTypes, services, multiple, maxFiles, maxSize]);
+        exec(successCB, errorCB, 'filepickerio', 'pick', parseArgs(pickerOptions));
+    },
+    /**
+     * Pick and store a file
+     * @param pickerOptions options
+     * @param storeOptions options
+     * @param successCB success callback
+     * @param errorCB error callback
+     * @return info of the file(s)
+     */
+    pickAndStore:function(pickerOptions, storeOptions, successCB, errorCB) {
+        exec(successCB, errorCB, 'filepickerio', 'pickAndStore', parseArgs(pickerOptions).concat(parseStoreArgs(storeOptions)));
     }
 };
 

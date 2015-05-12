@@ -27,6 +27,8 @@ public class FilePickerIO extends CordovaPlugin {
     private JSONArray executeArgs;
     
     public static final String ACTION_PICK = "pick";
+
+    public static final String ACTION_PICK_AND_STORE = "pickAndStore";
     
     private static final String LOG_TAG = "FilePickerIO";
 
@@ -41,54 +43,36 @@ public class FilePickerIO extends CordovaPlugin {
      * @param callbackContext   The callback context used when calling back into JavaScript.
      * @return                  True if the action was valid, false otherwise.
      */
-    public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
+    public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
         
         this.callbackContext = callbackContext;
         this.executeArgs = args; 
 
         final CordovaPlugin cdvPlugin = this;
         
-        if (ACTION_PICK.equals(action)) {
-            this.cordova.getThreadPool().execute(new Runnable() {
-                public void run() {
+        this.cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
 
 
-                    Context context = cordova.getActivity().getApplicationContext();
-                    Intent intent = new Intent(context, Filepicker.class);
-
+                Context context = cordova.getActivity().getApplicationContext();
+                Intent intent = new Intent(context, Filepicker.class);
+                if (ACTION_PICK.equals(action) || ACTION_PICK_AND_STORE.equals(action)) {
                     try {
-                        Filepicker.setKey(args.getString(0));
-                        //parsing the optional parameters
-                        if (!args.isNull(1)) {
-                            Filepicker.setAppName(args.getString(1));
-                        }
-                        if (!args.isNull(2)) {
-                            intent.putExtra("mimetype", parseJSONStringArray(args.getJSONArray(2)));
-                        }
-                        if (!args.isNull(3)) {
-                            intent.putExtra("services", parseJSONStringArray(args.getJSONArray(3)));
-                        }
-                        if (!args.isNull(4)) {
-                            intent.putExtra("multiple", args.getBoolean(4));
-                        }
-                        if (!args.isNull(5)) {
-                            intent.putExtra("maxFiles", args.getInt(5));
-                        }
-                        if (!args.isNull(6)) {
-                            intent.putExtra("maxSize", args.getInt(6));
+                        parseGlobalArgs(intent, args);
+                        if (ACTION_PICK_AND_STORE.equals(action)) {
+                            parseStoreArgs(intent, args);
                         }
                     }
                     catch(JSONException exception) {
                         callbackContext.error("cannot parse json");
                     }
 
-                    cordova.startActivityForResult(cdvPlugin, intent, Filepicker.REQUEST_CODE_GETFILE);
+                    cordova.startActivityForResult(cdvPlugin, intent, Filepicker.REQUEST_CODE_GETFILE);  
                 }
-            });    
-            return true;
-        }
+            }
+        });  
         
-        return false;
+        return true;
     }
 
 
@@ -113,6 +97,43 @@ public class FilePickerIO extends CordovaPlugin {
         }
         else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    public void parseGlobalArgs(Intent intent, JSONArray args) throws JSONException {
+        Filepicker.setKey(args.getString(0));
+        if (!args.isNull(1)) {
+            Filepicker.setAppName(args.getString(1));
+        }
+        if (!args.isNull(2)) {
+            intent.putExtra("mimetype", parseJSONStringArray(args.getJSONArray(2)));
+        }
+        if (!args.isNull(3)) {
+            intent.putExtra("services", parseJSONStringArray(args.getJSONArray(3)));
+        }
+        if (!args.isNull(4)) {
+            intent.putExtra("multiple", args.getBoolean(4));
+        }
+        if (!args.isNull(5)) {
+            intent.putExtra("maxFiles", args.getInt(5));
+        }
+        if (!args.isNull(6)) {
+            intent.putExtra("maxSize", args.getInt(6));
+        }
+    }
+
+    public void parseStoreArgs(Intent intent, JSONArray args) throws JSONException {
+        if (!args.isNull(7)) {
+            intent.putExtra("location", args.getString(7));
+        }
+        if (!args.isNull(8)) {
+            intent.putExtra("path", args.getString(8));
+        }
+        if (!args.isNull(9)) {
+            intent.putExtra("container", args.getString(9));
+        }
+        if (!args.isNull(10)) {
+            intent.putExtra("access", args.getString(10));
         }
     }
 
