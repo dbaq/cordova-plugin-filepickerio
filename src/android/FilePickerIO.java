@@ -78,21 +78,11 @@ public class FilePickerIO extends CordovaPlugin {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == Filepicker.REQUEST_CODE_GETFILE) {
             if (resultCode == Activity.RESULT_OK) {
-                // Filepicker always returns array of FPFile objects
-                ArrayList<FPFile> fpFiles = data.getParcelableArrayListExtra(Filepicker.FPFILES_EXTRA);
-
-                // Get first object (use if multiple option is not set)
-                FPFile file = fpFiles.get(0);
-                callbackContext.success(file.getUrl());
- 
-            } else if(resultCode == Activity.RESULT_CANCELED && data != null) {
-                // Uri fileUri = data.getData();
-
-                // Filepicker.uploadLocalFile(fileUri, this);
-                callbackContext.success("hello");
+                callbackContext.success(toJSON(data.getParcelableArrayListExtra(Filepicker.FPFILES_EXTRA))); // Filepicker always returns array of FPFile objects
+            } else {
+                callbackContext.error("nok");
             }
         }
         else {
@@ -143,5 +133,22 @@ public class FilePickerIO extends CordovaPlugin {
             a[i] = jSONArray.getString(i);
         }
         return a;
+    }
+
+    public JSONArray toJSON(ArrayList<FPFile> fpFiles) {
+        JSONArray res = new JSONArray();
+        for (FPFile fpFile : fpFiles) {
+            java.util.Map f = new java.util.HashMap<String, Object>();
+            f.put("container", fpFile.getContainer());
+            f.put("url", fpFile.getUrl());
+            f.put("filename", fpFile.getFilename());
+            f.put("key", fpFile.getKey());
+            f.put("type", fpFile.getType());
+            f.put("localPath", fpFile.getLocalPath());
+            f.put("size", fpFile.getSize());
+
+            res.put(f);
+        }
+        return res;
     }
 }
