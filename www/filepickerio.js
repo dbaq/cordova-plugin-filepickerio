@@ -57,6 +57,17 @@ var filepickerio = {
         exec(successCB, errorCB, 'filepickerio', 'pick', parseArgs(pickerOptions));
     },
     /**
+     * Pick multiple files
+     * @param pickerOptions options
+     * @param successCB success callback
+     * @param errorCB error callback
+     * @return files
+     */
+    pickMultiple:function(pickerOptions, successCB, errorCB) {
+        pickerOptions.multiple = true;
+        exec(successCB, errorCB, 'filepickerio', 'pick', parseArgs(pickerOptions));
+    },
+    /**
      * Pick and store a file
      * @param pickerOptions options
      * @param storeOptions options
