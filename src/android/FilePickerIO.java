@@ -158,7 +158,7 @@ public class FilePickerIO extends CordovaPlugin {
             f.put("url", fpFile.getUrl());
             f.put("filename", fpFile.getFilename());
             f.put("key", fpFile.getKey());
-            f.put("type", fpFile.getType());
+            f.put("mimetype", fpFile.getType());
             f.put("localPath", fpFile.getLocalPath());
             f.put("size", fpFile.getSize());
 
