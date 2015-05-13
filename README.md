@@ -15,7 +15,7 @@ in platforms/android/build.gradle, you need to add the following line after the 
 
 ```compile 'io.filepicker:filepicker-android:3.8.13'```
 
-waiting for a solution [here](stackoverflow.com/questions/30130838/cordova-plugin-add-external-aar-file-not-jar)
+waiting for a solution [here](https://stackoverflow.com/questions/30130838/cordova-plugin-add-external-aar-file-not-jar)
 
 ## Using the plugin ##
 The plugin creates the object `window.filepicker` with the following functions available:
