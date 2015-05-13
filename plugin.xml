@@ -5,10 +5,10 @@
     id="com.dbaq.cordova.filepickerio"
     version="0.0.3">
 
-    <name>Contacts Phone Numbers</name>
-    <description>Cordova Plugin to List Contacts Phone Numbers </description>
+    <name>Filepicker.io</name>
+    <description>Cordova plugin for Filepicker.io native Android SDK http://www.filepicker.io</description>
     <license>Apache 2.0</license>
-    <keywords>cordova,contacts,list,phone,numbers</keywords>
+    <keywords>cordova,filepicker,filepickerio,filepicker.com,upload</keywords>
     <issue>https://github.com/dbaq/cordova-plugin-contacts-phone-numbers/issues</issue>
 
     <js-module src="www/filepickerio.js" name="filepickerio">
@@ -24,18 +24,9 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>
 
-
-   <!--      <config-file target="AndroidManifest.xml" parent="application">
-            <activity android:label="@string/app_name" android:name="io.filepicker.Filepicker" android:theme="@android:style/Theme.Translucent.NoTitleBar" />     
-        </config-file>
- -->
-<!-- 
-        <source-file src="src/android/filepicker-android-3.8.13.aar" target-dir="libs/" /> -->
-        <!-- <source-file src="src/android/android-support-v4.jar" target-dir="libs/" /> -->
         <source-file src="src/android/FilePickerIO.java" target-dir="src/com/dbaq/cordova/filepickerio" />
     </platform>
 </plugin>
