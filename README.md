@@ -1,10 +1,83 @@
 # Filepicker.io 
 
-Plugin for Cordova / PhoneGap to use the native SDK of [Filepicker.io](https://www.filepicker.com)
+Plugin for Cordova / PhoneGap to use the [native android SDK](https://github.com/Ink/filepicker-android) of [Filepicker.io](https://www.filepicker.com) 
+
+iOS is not supported so far, open an issue if you want me to support it.
+
+## Installing the plugin ##
+```
+cordova plugin add https://github.com/dbaq/cordova-plugin-filepickerio.git --save
+```
+
+There is a (temporary) step to add to your build.gradle (if cordova > 5.0.0)
+
+in platforms/android/build.gradle, you need to add the following line after the line 247 (in ```dependencies {}```)
+
+```compile 'io.filepicker:filepicker-android:3.8.13'```
+
+waiting for a solution [here](stackoverflow.com/questions/30130838/cordova-plugin-add-external-aar-file-not-jar)
+
+## Using the plugin ##
+The plugin creates the object `window.filepicker` with the following functions available:
+
+ * `filepicker.setKey(key)`
+ * `filepicker.setName(app_name)`
+ * `filepicker.pick(picker_options, onSuccess(Blob){}, onError(FPError){})`
+ * `filepicker.pickMultiple(picker_options, onSuccess(Blobs){}, onError(FPError){})`
+ * `filepicker.pickAndStore(picker_options, store_options, onSuccess(Blobs){}, onError(FPError){})`
+
+### Response format ##
+ * container - container in S3 where the file was stored (if it was stored)
+ * url - file link to uploaded file
+ * filename - name of file
+ * localPath - local path of file
+ * key - unique key
+ * mimetype - mimetype
+ * size - size in bytes
+
+note: pick() returns an object, pickMultiple() and pickAndStore() returns an array of objects
+
+### Picker options available ##
+ * ```multiple``` boolean : Getting multiple files
+ * ```maxFiles``` integer : Choosing max files
+ * ```maxSize``` integer : Choosing max files
+ * ```services``` array of strings : Choosing services ```{"GALLERY", "CAMERA", "FACEBOOK", "CLOUDDRIVE", "DROPBOX", "BOX", "GMAIL", "INSTAGRAM", "FLICKR", "PICASA", "GITHUB", "GOOGLE_DRIVE", "EVERNOTE", "SKYDRIVE"}```
+ * ```mimeTypes``` array of strings : Choosing mimetypes
 
 
-THIS IS A WORK IN PROGRESS.
+### Store options available ##
+ * ```location``` string : ```S3```
+ * ```path``` string : Choosing the path ```"/example/123.png"```
+ * ```container``` string : Bucket
+ * ```access``` string :  ```public```
 
+### Security options available ##
+Not implemented yet, feel free to contribute. See [native SDK documentation](https://github.com/Ink/filepicker-android#security).
+
+## Full example
+
+A full example could be:
+
+```
+function pickFile() {
+    window.filepicker.setKey('APP KEY');
+    window.filepicker.setName('APP NAME');
+    window.filepicker.pickAndStore({
+        multiple: true,
+        mimeTypes: ['image/*', 'application/pdf'],
+        services : [ 'CAMERA', 'GALLERY', 'GOOGLE_DRIVE', 'DROPBOX', 'BOX', 'SKYDRIVE'],
+        maxFiles: 20,
+        maxSize: (10*1024*1024)
+    }, {
+        location : 'S3',
+        path : '/location/'
+    }, function(res) {
+        console.log(res);
+    }, function(e) {
+       console.error(e);
+    });
+}
+```
 
 ## Contributing
 
@@ -48,7 +121,7 @@ Ask, or pick an issue and comment on it announcing your desire to work on it. Id
 
 The MIT License
 
-Copyright (c) 2013 Didier Baquier
+Copyright (c) 2015 Didier Baquier
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
