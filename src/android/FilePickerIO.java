@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 
@@ -26,6 +28,8 @@ public class FilePickerIO extends CordovaPlugin {
     
     private JSONArray executeArgs;
     
+    private String action;
+    
     public static final String ACTION_SET_KEY = "setKey";
     
     public static final String ACTION_SET_NAME = "setName";
@@ -33,9 +37,10 @@ public class FilePickerIO extends CordovaPlugin {
     public static final String ACTION_PICK = "pick";
 
     public static final String ACTION_PICK_AND_STORE = "pickAndStore";
+
+    public static final String ACTION_HAS_PERMISSION = "hasPermission";
     
     private static final String LOG_TAG = "FilePickerIO";
-
     
     public FilePickerIO() {}
 
@@ -48,46 +53,80 @@ public class FilePickerIO extends CordovaPlugin {
      * @return                  True if the action was valid, false otherwise.
      */
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        
         this.callbackContext = callbackContext;
-        this.executeArgs = args; 
+        this.executeArgs = args;
+        this.action = action; 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || action.equals(ACTION_HAS_PERMISSION)) {
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, hasPermission()));
+            return true;
+        }
+        else {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || action.equals(ACTION_SET_KEY) || action.equals(ACTION_SET_NAME)) {
+                execute();
+                return true;
+            }
+            else {
+                if (hasPermission()) {
+                    execute();
+                } else {
+                    requestPermission();
+                }
+                return true;
+            }
+        }
+    }
 
-        final CordovaPlugin cdvPlugin = this;
-        
+    private boolean hasPermission() {
+        return cordova.hasPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    private void requestPermission() {
+        cordova.requestPermission(this, 0, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
+        for (int r : grantResults) {
+            if (r == PackageManager.PERMISSION_DENIED) {
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "User has denied permission"));
+                return;
+            }
+        }
+        execute();
+    }
+
+    public void execute() {
+        final FilePickerIO cdvPlugin = this;
         this.cordova.getThreadPool().execute(new Runnable() {
             public void run() {
-
                 try {
-                    if (ACTION_SET_KEY.equals(action)) {
-                        Filepicker.setKey(args.getString(0));
+                    if (ACTION_SET_KEY.equals(cdvPlugin.getAction())) {
+                        System.err.println("icici");
+                        System.err.println(cdvPlugin.getAction());
+                        System.err.println(cdvPlugin.getArgs().getString(0));
+                        Filepicker.setKey(cdvPlugin.getArgs().getString(0));
                         return;
                     }
-                    if (ACTION_SET_NAME.equals(action)) {
-                        Filepicker.setAppName(args.getString(0));
+                    if (ACTION_SET_NAME.equals(cdvPlugin.getAction())) {
+                        Filepicker.setAppName(cdvPlugin.getArgs().getString(0));
                         return;
                     }
 
                     Context context = cordova.getActivity().getApplicationContext();
                     Intent intent = new Intent(context, Filepicker.class);
-                    if (ACTION_PICK.equals(action) || ACTION_PICK_AND_STORE.equals(action)) {
-                            parseGlobalArgs(intent, args);
-                            if (ACTION_PICK_AND_STORE.equals(action)) {
-                                parseStoreArgs(intent, args);
-                            }
-                       
-
+                    if (ACTION_PICK.equals(cdvPlugin.getAction()) || ACTION_PICK_AND_STORE.equals(cdvPlugin.getAction())) {
+                        parseGlobalArgs(intent, cdvPlugin.getArgs());
+                        if (ACTION_PICK_AND_STORE.equals(cdvPlugin.getAction())) {
+                            parseStoreArgs(intent, cdvPlugin.getArgs());
+                        }
                         cordova.startActivityForResult(cdvPlugin, intent, Filepicker.REQUEST_CODE_GETFILE);  
                     }
                 }
                 catch(JSONException exception) {
-                    callbackContext.error("cannot parse json");
+                    cdvPlugin.getCallbackContext().error("cannot parse json");
                 }
             }
         });  
-        
-        return true;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -165,5 +204,17 @@ public class FilePickerIO extends CordovaPlugin {
             res.put(f);
         }
         return res;
+    }
+
+    public String getAction() {
+        return this.action;
+    }
+
+    public JSONArray getArgs() {
+        return this.executeArgs;
+    }
+
+    public CallbackContext getCallbackContext() {
+        return this.callbackContext;
     }
 }
