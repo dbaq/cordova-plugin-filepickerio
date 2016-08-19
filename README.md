@@ -121,7 +121,7 @@ Ask, or pick an issue and comment on it announcing your desire to work on it. Id
 
 The MIT License
 
-Copyright (c) 2015 Didier Baquier
+Copyright (c) 2016 Didier Baquier
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
