@@ -9,14 +9,6 @@ iOS is not supported so far, open an issue if you want me to support it.
 cordova plugin add https://github.com/dbaq/cordova-plugin-filepickerio.git --save
 ```
 
-There is a (temporary) step to add to your build.gradle (if cordova > 5.0.0)
-
-in platforms/android/build.gradle, you need to add the following line after the line 247 (in ```dependencies {}```)
-
-```compile 'io.filepicker:filepicker-android:3.9.1'```
-
-waiting for a solution [here](https://stackoverflow.com/questions/30130838/cordova-plugin-add-external-aar-file-not-jar)
-
 ## Using the plugin ##
 The plugin creates the object `window.filepicker` with the following functions available:
 

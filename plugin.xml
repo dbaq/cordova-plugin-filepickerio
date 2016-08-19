@@ -28,5 +28,7 @@
         </config-file>
 
         <source-file src="src/android/FilePickerIO.java" target-dir="src/com/dbaq/cordova/filepickerio" />
+
+        <framework src="src/android/FilePickerIO.gradle" custom="true" type="gradleReference" />
     </platform>
 </plugin>
