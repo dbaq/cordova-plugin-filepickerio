@@ -13,7 +13,7 @@ There is a (temporary) step to add to your build.gradle (if cordova > 5.0.0)
 
 in platforms/android/build.gradle, you need to add the following line after the line 247 (in ```dependencies {}```)
 
-```compile 'io.filepicker:filepicker-android:3.8.13'```
+```compile 'io.filepicker:filepicker-android:3.9.1'```
 
 waiting for a solution [here](https://stackoverflow.com/questions/30130838/cordova-plugin-add-external-aar-file-not-jar)
 
