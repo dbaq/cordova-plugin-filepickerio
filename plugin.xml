@@ -31,4 +31,30 @@
 
         <framework src="src/android/FilePickerIO.gradle" custom="true" type="gradleReference" />
     </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+          <feature name="filepickerio">
+            <param name="ios-package" value="FilePickerIO"/>
+          </feature>
+        </config-file>
+        <header-file src="src/ios/FilePickerIO.h"/>
+        <source-file src="src/ios/FilePickerIO.m"/>
+        <!-- <resource-file src="src/ios/libs/FPPicker.framework/FPPicker.bundle"/> -->
+        <framework src="src/ios/libs/FSPicker.framework" custom="true"/>
+        <framework src="src/ios/libs/Filestack.framework" custom="true"/>
+        <framework src="src/ios/libs/AFNetworking.framework" custom="true"/>
+        <framework src="Foundation.framework" autogen="true"/>
+        <framework src="AssetsLibrary.framework" autogen="true"/>
+        <framework src="CoreFoundation.framework" autogen="true"/>
+        <framework src="CoreGraphics.framework" autogen="true"/>
+        <framework src="MobileCoreServices.framework" autogen="true"/>
+        <framework src="QuartzCore.framework" autogen="true"/>
+        <framework src="SystemConfiguration.framework" autogen="true"/>
+    </platform>
 </plugin>
+
+
+
+
