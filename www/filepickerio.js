@@ -28,7 +28,7 @@ function parseArgs(args) {
     var a = [];
     a.push(args.mimeTypes || null);
     a.push(args.services || null);
-    a.push(args.multiple || null);
+    a.push(typeof args.multiple === 'boolean' ? args.multiple : null);
     a.push(args.maxFiles || null);
     a.push(args.maxSize || null);
     return a;
