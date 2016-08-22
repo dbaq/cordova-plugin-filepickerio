@@ -100,9 +100,6 @@ public class FilePickerIO extends CordovaPlugin {
             public void run() {
                 try {
                     if (ACTION_SET_KEY.equals(cdvPlugin.getAction())) {
-                        System.err.println("icici");
-                        System.err.println(cdvPlugin.getAction());
-                        System.err.println(cdvPlugin.getArgs().getString(0));
                         Filepicker.setKey(cdvPlugin.getArgs().getString(0));
                         return;
                     }
