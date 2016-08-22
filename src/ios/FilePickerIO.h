@@ -1,14 +1,19 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDVPlugin.h>
 
-#import <MessageUI/MessageUI.h>
-#import <MessageUI/MFMessageComposeViewController.h>
-#import <FPPicker/FPPicker.h>
+#import <Filestack/Filestack.h>
+#import <FSPicker/FSPicker.h>
 
-@interface FilePickerIO : CDVPlugin <MFMessageComposeViewControllerDelegate>
+@interface FilePickerIO : CDVPlugin
 
-@property(strong) NSString* callbackID;
+@property(strong) NSString* callbackId;
 
 - (void)setKey:(CDVInvokedUrlCommand*)command;
+
+- (void)setName:(CDVInvokedUrlCommand*)command;
+
+- (void)pick:(CDVInvokedUrlCommand*)command;
+
+- (void)pickAndStore:(CDVInvokedUrlCommand*)command;
 
 @end
