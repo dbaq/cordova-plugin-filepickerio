@@ -1,0 +1,23 @@
+{
+  "name": "cordova-plugin-filepickerio",
+  "version": "0.0.6",
+  "description": "FileStack plugin for Cordova. Available for Android and iOS.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbaq/cordova-plugin-filepickerio.git"
+  },
+  "keywords": [
+    "cordova",
+    "phonegap",
+    "cordova-ios",
+    "cordova-android",
+    "filestack",
+    "filepicker"
+  ],
+  "author": "Didier Baquier <didier.baquier@gmail.com> (http://www.didierbaquier.fr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dbaq/cordova-plugin-filepickerio/issues"
+  },
+  "homepage": "https://github.com/dbaq/cordova-plugin-filepickerio#readme"
+}

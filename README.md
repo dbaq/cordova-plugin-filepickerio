@@ -4,7 +4,7 @@ Plugin for Cordova to use the [native android SDK](https://github.com/Ink/filepi
 
 ## Installing the plugin ##
 ```
-cordova plugin add https://github.com/dbaq/cordova-plugin-filepickerio.git --save
+cordova plugin add cordova-plugin-filepickerio --save
 ```
 
 ## Using the plugin ##
