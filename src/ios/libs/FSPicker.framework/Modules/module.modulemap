@@ -1,0 +1,6 @@
+framework module FSPicker {
+  umbrella header "FSPicker-umbrella.h"
+
+  export *
+  module * { export * }
+}

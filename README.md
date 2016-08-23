@@ -1,8 +1,6 @@
 # Filepicker.io 
 
-Plugin for Cordova / PhoneGap to use the [native android SDK](https://github.com/Ink/filepicker-android) of [Filepicker.io](https://www.filepicker.com) 
-
-iOS is not supported so far, open an issue if you want me to support it.
+Plugin for Cordova to use the [native android SDK](https://github.com/Ink/filepicker-android) and the [native iOS SDK](https://github.com/filestack/FSPicker) of [FileStack (formerly filepicker.io)](https://www.filestack.com/) 
 
 ## Installing the plugin ##
 ```
@@ -13,7 +11,7 @@ cordova plugin add https://github.com/dbaq/cordova-plugin-filepickerio.git --sav
 The plugin creates the object `window.filepicker` with the following functions available:
 
  * `filepicker.setKey(key)`
- * `filepicker.setName(app_name)`
+ * `filepicker.setName(app_name)` // not supported on iOS
  * `filepicker.pick(picker_options, onSuccess(Blob){}, onError(FPError){})`
  * `filepicker.pickMultiple(picker_options, onSuccess(Blobs){}, onError(FPError){})`
  * `filepicker.pickAndStore(picker_options, store_options, onSuccess(Blobs){}, onError(FPError){})`
@@ -22,29 +20,39 @@ The plugin creates the object `window.filepicker` with the following functions a
  * container - container in S3 where the file was stored (if it was stored)
  * url - file link to uploaded file
  * filename - name of file
- * localPath - local path of file
+ * localPath - local path of file // not returned on iOS
  * key - unique key
  * mimetype - mimetype
  * size - size in bytes
 
-note: pick() returns an object, pickMultiple() and pickAndStore() returns an array of objects
+note: `pick()` returns an object, `pickMultiple()` and `pickAndStore()` returns an array of objects
 
 ### Picker options available ##
  * ```multiple``` boolean : Getting multiple files
  * ```maxFiles``` integer : Choosing max files
- * ```maxSize``` integer : Choosing max files
+ * ```maxSize``` integer : Choosing max files // not supported on iOS
  * ```services``` array of strings : Choosing services ```{"GALLERY", "CAMERA", "FACEBOOK", "CLOUDDRIVE", "DROPBOX", "BOX", "GMAIL", "INSTAGRAM", "FLICKR", "PICASA", "GITHUB", "GOOGLE_DRIVE", "EVERNOTE", "SKYDRIVE"}```
  * ```mimeTypes``` array of strings : Choosing mimetypes
 
 
 ### Store options available ##
- * ```location``` string : ```S3```
+ * ```location``` string : `S3`, `azure`, `dropbox`, `rackspace`, `gcs` 
  * ```path``` string : Choosing the path ```"/example/123.png"```
  * ```container``` string : Bucket
  * ```access``` string :  ```public```
 
 ### Security options available ##
 Not implemented yet, feel free to contribute. See [native SDK documentation](https://github.com/Ink/filepicker-android#security).
+
+### Theming ##
+Not implemented yet, feel free to contribute. See [native SDK documentation](https://github.com/filestack/FSPicker#fstheme).
+
+## Difference between iOS and Android
+
+ * `filepicker.setName(name)` is not supported on iOS
+ * the `maxSize` picker options is not supported on iOS
+ * the `localPath` property is not returned on iOS
+ * the property `picker_options.multiple` for the `filepicker.pickAndStore()` function have different default value. On android, it is `false` by default. On iOS, it is `true`.
 
 ## Full example
 

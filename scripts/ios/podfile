@@ -1,0 +1,7 @@
+platform :ios, '8.4'
+install! 'cocoapods', :integrate_targets => false
+use_frameworks!
+
+target :'FSPicker' do
+  pod 'FSPicker', '~> 1.0.5'
+end
