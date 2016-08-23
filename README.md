@@ -17,13 +17,13 @@ The plugin creates the object `window.filepicker` with the following functions a
  * `filepicker.pickAndStore(picker_options, store_options, onSuccess(Blobs){}, onError(FPError){})`
 
 ### Response format ##
- * container - container in S3 where the file was stored (if it was stored)
- * url - file link to uploaded file
- * filename - name of file
- * localPath - local path of file // not returned on iOS
- * key - unique key
- * mimetype - mimetype
- * size - size in bytes
+ * `container` - container in S3 where the file was stored (if it was stored)
+ * `url` - file link to uploaded file
+ * `filename` - name of file
+ * `localPath` - local path of file // not returned on iOS
+ * `key` - unique key
+ * `mimetype` - mimetype
+ * `size` - size in bytes
 
 note: `pick()` returns an object, `pickMultiple()` and `pickAndStore()` returns an array of objects
 
