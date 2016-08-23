@@ -41,7 +41,6 @@
         </config-file>
         <header-file src="src/ios/FilePickerIO.h"/>
         <source-file src="src/ios/FilePickerIO.m"/>
-        <!-- <resource-file src="src/ios/libs/FPPicker.framework/FPPicker.bundle"/> -->
         <framework src="src/ios/libs/FSPicker.framework" custom="true"/>
         <framework src="src/ios/libs/Filestack.framework" custom="true"/>
         <framework src="src/ios/libs/AFNetworking.framework" custom="true"/>
