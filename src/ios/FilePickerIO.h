@@ -4,7 +4,7 @@
 #import <Filestack/Filestack.h>
 #import <FSPicker/FSPicker.h>
 
-@interface FilePickerIO : CDVPlugin
+@interface FilePickerIO : CDVPlugin <FSPickerDelegate>
 
 @property(strong) NSString* callbackId;
 

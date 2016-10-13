@@ -72,9 +72,11 @@ FSConfig *config;
             config.storeOptions = storeOptions;
         }
         FSTheme *theme = [FSTheme filestackTheme];
-        FSPickerController *fsPickerController = [[FSPickerController alloc] initWithConfig:config theme:theme];
-        fsPickerController.fsDelegate = self;
-        [self.viewController presentViewController:fsPickerController animated:YES completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          FSPickerController *fsPickerController = [[FSPickerController alloc] initWithConfig:config theme:theme];
+          fsPickerController.fsDelegate = self;
+          [self.viewController presentViewController:fsPickerController animated:YES completion:nil];
+        });
         return;
     }];
 }
