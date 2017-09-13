@@ -1,4 +1,5 @@
 # Filepicker.io 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-filepickerio'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-filepickerio.svg' /></a>
 
 Plugin for Cordova to use the [native android SDK](https://github.com/Ink/filepicker-android) and the [native iOS SDK](https://github.com/filestack/FSPicker) of [FileStack (formerly filepicker.io)](https://www.filestack.com/) 
 
