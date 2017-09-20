@@ -12,7 +12,7 @@ cordova plugin add cordova-plugin-filepickerio --save
 The plugin creates the object `window.filepicker` with the following functions available:
 
  * `filepicker.setKey(key)`
- * `filepicker.setName(app_name)` // not supported on iOS
+ * `filepicker.setName(app_name)`
  * `filepicker.pick(picker_options, onSuccess(Blob){}, onError(FPError){})`
  * `filepicker.pickMultiple(picker_options, onSuccess(Blobs){}, onError(FPError){})`
  * `filepicker.pickAndStore(picker_options, store_options, onSuccess(Blobs){}, onError(FPError){})`
@@ -50,7 +50,7 @@ Not implemented yet, feel free to contribute. See [native SDK documentation](htt
 
 ## Difference between iOS and Android
 
- * `filepicker.setName(name)` is not supported on iOS
+ * `filepicker.setName(name)`
  * the `maxSize` picker options is not supported on iOS
  * the `localPath` property is not returned on iOS
  * the property `picker_options.multiple` for the `filepicker.pickAndStore()` function have different default value. On android, it is `false` by default. On iOS, it is `true`.
