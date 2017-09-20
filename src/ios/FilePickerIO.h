@@ -6,7 +6,9 @@
 
 @interface FilePickerIO : CDVPlugin <FSPickerDelegate>
 
-@property(strong) NSString* callbackId;
+@property(nonatomic, copy) NSString* actionCallbackId;
+@property(nonatomic, copy) NSString* keyCallbackId;
+@property(nonatomic, copy) NSString* nameCallbackId;
 
 - (void)setKey:(CDVInvokedUrlCommand*)command;
 

@@ -2,33 +2,35 @@
 #import <UIKit/UIKit.h>
 
 @implementation FilePickerIO
-@synthesize callbackId;
+@synthesize actionCallbackId;
+@synthesize keyCallbackId;
+@synthesize nameCallbackId;
 FSConfig *config;
 
 - (void)setKey:(CDVInvokedUrlCommand*)command {
-     self.callbackId = command.callbackId;
+     self.keyCallbackId = command.callbackId;
      [self.commandDelegate runInBackground:^{
          config = [[FSConfig alloc] initWithApiKey:[command.arguments objectAtIndex:0]];
          CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-         [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
+         [self.commandDelegate sendPluginResult:result callbackId:self.keyCallbackId];
      }];
 }
 
 - (void)setName:(CDVInvokedUrlCommand*)command {
-     self.callbackId = command.callbackId;
+     self.nameCallbackId = command.callbackId;
      [self.commandDelegate runInBackground:^{
          CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-         [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
+         [self.commandDelegate sendPluginResult:result callbackId:self.nameCallbackId];
      }];
 }
 
 - (void)pick:(CDVInvokedUrlCommand*)command {
-    self.callbackId = command.callbackId;
+    self.actionCallbackId = command.callbackId;
     [self showPicker: command storeOptions:nil];
 }
 
 - (void)pickAndStore:(CDVInvokedUrlCommand*)command {
-    self.callbackId = command.callbackId;
+    self.actionCallbackId = command.callbackId;
     FSStoreOptions *storeOptions = [[FSStoreOptions alloc] init];
     storeOptions.location = FSStoreLocationS3;
     if ([[command.arguments objectAtIndex:5] isEqual: @"azure"]) {
@@ -208,7 +210,7 @@ FSConfig *config;
     
     if (blobs.count == 0) {
         NSLog(@"Nothing was picked.");
-        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"cancelled"] callbackId:self.callbackId];
+        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"cancelled"] callbackId:self.actionCallbackId];
         return;
     }
     
@@ -225,12 +227,12 @@ FSConfig *config;
         
         [files addObject:file];
     }
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:files] callbackId:self.callbackId];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:files] callbackId:self.actionCallbackId];
 }
 
  - (void)fsPickerDidCancel:(FSPickerController *)picker {
      NSLog(@"FilePicker Cancelled");
      [self.viewController dismissViewControllerAnimated:YES completion:nil];
-     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"cancelled"] callbackId:self.callbackId];
+     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"cancelled"] callbackId:self.actionCallbackId];
  }
 @end

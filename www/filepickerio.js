@@ -49,14 +49,14 @@ var filepickerio = {
      * @param key
      */
     setKey:function(key) {
-        exec(null, null, 'filepickerio', 'setKey', [key]);
+        exec(function() {}, function() {}, 'filepickerio', 'setKey', [key]);
     },
     /**
      * Set the app name
      * @param name
      */
     setName:function(name) {
-        exec(null, null, 'filepickerio', 'setName', [name]);
+        exec(function() {}, function() {}, 'filepickerio', 'setName', [name]);
     },
     /**
      * Pick a file
