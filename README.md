@@ -79,6 +79,20 @@ function pickFile() {
     });
 }
 ```
+## FAQ
+
+### `dydl  Library not loaded` error
+
+If you get the following error when launching your app:
+```
+dyld: Library not loaded: .framework/FSPicker
+Reason: image not found
+```
+
+Make sure that the frameworks are correctly embedded in Xcode:
+
+<img width="1109" alt="screen shot 2017-09-19 at 10 18 38 pm" src="https://user-images.githubusercontent.com/1867703/30628011-939bc696-9d88-11e7-9d9f-3b04cd19630a.png">
+
 
 ## Contributing
 
