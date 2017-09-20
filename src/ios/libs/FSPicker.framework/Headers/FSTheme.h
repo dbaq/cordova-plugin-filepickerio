@@ -21,6 +21,11 @@
 @property (nonatomic, strong) UIColor *navigationBarBackgroundColor;
 
 /*!
+ Text color to apply to the navigation bar title.
+ */
+@property (nonatomic, strong) UIColor *navigationBarTitleColor;
+
+/*!
  Tint color to apply to the navigation items and bar button items.
  */
 @property (nonatomic, strong) UIColor *navigationBarTintColor;

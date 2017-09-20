@@ -3,5 +3,5 @@ install! 'cocoapods', :integrate_targets => false
 use_frameworks!
 
 target :'FSPicker' do
-  pod 'FSPicker', '~> 1.0.5'
+  pod 'FSPicker', '1.1.7'
 end

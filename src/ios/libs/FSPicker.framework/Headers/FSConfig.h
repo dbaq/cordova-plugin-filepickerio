@@ -31,12 +31,15 @@ extern NSString *const FSSourceCloudDrive;
 @interface FSConfig : NSObject
 
 @property (nonatomic, copy) NSString *apiKey;
+@property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSArray<NSString *> *sources;
 
 /// FSPickerController only.
 @property (nonatomic, copy) NSArray<FSMimeType> *mimeTypes;
 /// FSPickerController only.
 @property (nonatomic, assign) NSInteger maxFiles;
+/// FSPickerController only.
+@property (nonatomic, assign) NSUInteger maxSize;
 /// FSPickerController only.
 @property (nonatomic, assign) BOOL selectMultiple;
 /// FSPickerController only.
