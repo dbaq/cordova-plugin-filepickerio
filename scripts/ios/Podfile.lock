@@ -14,19 +14,19 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Filestack (0.3.2):
+  - Filestack (0.3.9):
     - AFNetworking (~> 3.0)
-  - FSPicker (1.0.5):
+  - FSPicker (1.1.7):
     - Filestack
 
 DEPENDENCIES:
-  - FSPicker (~> 1.0.5)
+  - FSPicker (= 1.1.7)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Filestack: 5a50fc401ae20533bf79d95dbe7863f05415cfed
-  FSPicker: 18a90128de075776c2eaf7370c4bd931ff1ee15d
+  Filestack: bcb024946aae878c8ec1f1624e76eae7c9c4f37e
+  FSPicker: 0b59d2b1551b50b063171cff9c331904edaed50f
 
-PODFILE CHECKSUM: 53d281d19e0651f7025bb6873de1191534597d73
+PODFILE CHECKSUM: 2521c5a4da392d2c496ca2536119a6d5e452abe0
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.3.1

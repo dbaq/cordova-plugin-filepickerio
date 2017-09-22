@@ -8,17 +8,24 @@
 FSConfig *config;
 
 - (void)setKey:(CDVInvokedUrlCommand*)command {
+     if (!config){
+         config = [[FSConfig alloc] initWithApiKey:@""];
+     }
      self.keyCallbackId = command.callbackId;
      [self.commandDelegate runInBackground:^{
-         config = [[FSConfig alloc] initWithApiKey:[command.arguments objectAtIndex:0]];
+         config.apiKey = [command.arguments objectAtIndex:0];
          CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
          [self.commandDelegate sendPluginResult:result callbackId:self.keyCallbackId];
      }];
 }
 
 - (void)setName:(CDVInvokedUrlCommand*)command {
+     if (!config){
+         config = [[FSConfig alloc] initWithApiKey:@""];
+     }
      self.nameCallbackId = command.callbackId;
      [self.commandDelegate runInBackground:^{
+         config.title = [command.arguments objectAtIndex:0];
          CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
          [self.commandDelegate sendPluginResult:result callbackId:self.nameCallbackId];
      }];

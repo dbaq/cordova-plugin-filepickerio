@@ -14,7 +14,7 @@ pod: clean
 
 build: pod
 	cd Pods && xcodebuild -configuration ${CONFIGURATION} -target ${FRAMEWORK_NAME}
-	cd Pods && xcodebuild -configuration ${CONFIGURATION} -sdk iphonesimulator9.3 -target ${FRAMEWORK_NAME}
+	cd Pods && xcodebuild -configuration ${CONFIGURATION} -sdk iphonesimulator11.0 -target ${FRAMEWORK_NAME}
 	mkdir ${OUTPUT_LIBRARIES_PATH}
 	for LIB in ${LIBS}; do \
 		mkdir ${OUTPUT_LIBRARIES_PATH}/$$LIB.framework ; \
