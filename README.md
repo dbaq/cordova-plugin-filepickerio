@@ -93,6 +93,16 @@ Make sure that the frameworks are correctly embedded in Xcode:
 
 <img width="1109" alt="screen shot 2017-09-19 at 10 18 38 pm" src="https://user-images.githubusercontent.com/1867703/30628011-939bc696-9d88-11e7-9d9f-3b04cd19630a.png">
 
+## Donations
+
+If your app is successful or if you are working for a company, please consider donating some beer money :beer::
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/dbaq/10)
+
+Or visit our sponsor:
+<a target='_blank' href='https://app.codesponsor.io/link/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-filepickerio'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/nnq4YKjaFeDVYQrFbBYw4qNV/dbaq/cordova-plugin-filepickerio.svg' /></a>
+
+Keep in mind that I am maintaining this repository on my free time so thank you for considering a donation. :+1:
 
 ## Contributing
 
