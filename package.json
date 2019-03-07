@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-filepickerio",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "FileStack plugin for Cordova. Available for Android and iOS.",
   "repository": {
     "type": "git",
