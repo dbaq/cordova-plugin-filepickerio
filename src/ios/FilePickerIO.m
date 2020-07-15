@@ -52,6 +52,13 @@ FSConfig *config;
     storeOptions.path = [command.arguments objectAtIndex:6];
     storeOptions.container = [command.arguments objectAtIndex:7];
     storeOptions.access = [command.arguments objectAtIndex:8];
+    if ([command.arguments objectAtIndex:9] && [command.arguments objectAtIndex:10]) {
+        NSDictionary *security = @{
+            @"policy" : [command.arguments objectAtIndex:9],
+            @"signature" : [command.arguments objectAtIndex:10]
+        };
+        storeOptions.security = security;
+    }
     
     [self showPicker: command storeOptions:storeOptions];
   
