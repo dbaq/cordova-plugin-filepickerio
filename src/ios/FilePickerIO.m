@@ -53,7 +53,7 @@ FSConfig *config;
     storeOptions.container = [command.arguments objectAtIndex:7];
     storeOptions.access = [command.arguments objectAtIndex:8];
     if ([command.arguments objectAtIndex:9] && [command.arguments objectAtIndex:10]) {
-        storeOptions.security = [[FSSecurity alloc] initWithPolicy: [command.arguments objectAtIndex:9] signature:[command.arguments objectAtIndex:10]];
+        storeOptions.security = [[FSSecurity alloc] initWithPolicy:[command.arguments objectAtIndex:9] signature:[command.arguments objectAtIndex:10]];
     }
     
     [self showPicker: command storeOptions:storeOptions];
