@@ -176,6 +176,10 @@ public class FilePickerIO extends CordovaPlugin {
         if (!args.isNull(8)) {
             intent.putExtra("access", args.getString(8));
         }
+        if (!args.isNull(9) && !args.isNull(10)) {
+            intent.putExtra("policy", args.getString(9));
+            intent.putExtra("signature", args.getString(10));
+        }
     }
 
     public String[] parseJSONStringArray(JSONArray jSONArray) throws JSONException {
